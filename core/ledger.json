@@ -1,0 +1,33 @@
+{
+    "meta": {
+        "created_at": "2026-02-06T14:21:45+08:00",
+        "last_updated": "2026-02-06T14:21:45+08:00",
+        "currency": "CNY"
+    },
+    "summary": {
+        "total_income": 0,
+        "total_expense": 0,
+        "total_token_cost": 0,
+        "net_profit": 0
+    },
+    "transactions": [
+        {
+            "id": "TXN-001",
+            "timestamp": "2026-02-06T14:21:45+08:00",
+            "type": "expense",
+            "category": "token_cost",
+            "amount": 0.5,
+            "description": "项目初始化 - 规划与讨论消耗约10k tokens",
+            "channel": "system",
+            "balance_after": -0.5
+        }
+    ],
+    "channel_performance": {
+        "content_creation": {
+            "total_income": 0,
+            "total_expense": 0,
+            "articles_published": 0,
+            "roi": null
+        }
+    }
+}

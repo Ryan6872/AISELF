@@ -1,0 +1,42 @@
+{
+  "project": "Project Prometheus",
+  "version": "0.1.0",
+  "created_at": "2026-02-06T14:21:45+08:00",
+  "strategy": {
+    "supervision_level": "C",
+    "risk_phase": 2,
+    "risk_preference": "medium",
+    "primary_channel": "to_be_determined",
+    "initial_budget_cny": 2000
+  },
+  "constraints": {
+    "max_single_transaction_cny": 100,
+    "daily_loss_limit_cny": 200,
+    "require_human_approval": [
+      "new_channel",
+      "transaction_above_50",
+      "external_contract"
+    ],
+    "prohibited_actions": [
+      "gambling",
+      "adult_content",
+      "deceptive_marketing",
+      "illegal_activities"
+    ]
+  },
+  "token_cost": {
+    "estimated_per_1k_tokens_cny": 0.05,
+    "tracking_enabled": true
+  },
+  "channels": {
+    "content_creation": {
+      "enabled": true,
+      "platforms": [
+        "juejin",
+        "zhihu",
+        "dev.to"
+      ],
+      "status": "initializing"
+    }
+  }
+}
