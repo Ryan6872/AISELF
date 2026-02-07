@@ -1,52 +1,59 @@
-# Code Explainer API
+# Prometheus AI Services
 
-一个将代码片段转换为带详细注释版本的API服务。
+Project Prometheus 下的微服务集合，提供高效、零成本的文本和代码处理 API。
 
-## 功能
+## 🚀 Deployed Endpoint
+- Base URL: `https://aiself.vercel.app/api`
 
-- 自动检测编程语言
-- 为每行代码添加中文/英文注释  
-- 生成代码整体摘要
-- 支持 Python, JavaScript, Java, C/C++ 等
+## 📦 Available APIs
 
-## API 端点
+### 1. Code Explainer (Enhanced)
+- **Endpoint**: `/explain`
+- **Method**: `POST`
+- **Description**: 基于 AST (Abstract Syntax Tree) 对代码进行深度结构分析和复杂度评估。目前深度分析仅支持 Python。
+- **Payload**:
+  ```json
+  {
+    "code": "def hello(): print('world')",
+    "language": "python" 
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "analysis": {
+      "functions": [{"name": "hello", "lineno": 1, "args": []}],
+      "complexity": 1
+    }
+  }
+  ```
 
-### GET /api/explain
-返回API信息和使用说明。
+### 2. Text Toolkit
+- **Endpoint**: `/text`
+- **Method**: `POST` 
+- **Description**: 多功能文本处理工具集。
+- **Actions**:
+  - `stats`: 统计字数、词数、阅读时间
+  - `keywords`: 提取关键词 (Top N)
+  - `clean`: 去除 HTML 标签、多余空格
+  - `slug`: 生成 URL 友好的 slug
+- **Payload**:
+  ```json
+  {
+    "action": "stats",
+    "text": "Hello world! This is a test."
+  }
+  ```
 
-### POST /api/explain
-解释代码并添加注释。
+## 🛠️ Development
 
-**请求体**:
-```json
-{
-  "code": "def hello():\n    print('Hello World')",
-  "language": "auto",
-  "output_lang": "zh"
-}
-```
+所有 API 均为 Serverless Function，部署在 Vercel 上。
 
-**响应**:
-```json
-{
-  "original_code": "...",
-  "explained_code": "# 定义函数\ndef hello():\n    # 输出打印\n    print('Hello World')",
-  "language": "python",
-  "summary": "这段python代码包含 2 行，1 个函数...",
-  "line_count": 2
-}
-```
-
-## 部署
-
-### Vercel
+### Local Test
 ```bash
-cd api-service
-vercel --prod
+# 需安装 Vercel CLI
+vercel dev
 ```
 
-## 定价（RapidAPI）
-
-- **Free**: 100 次/月
-- **Basic** ($9.99/月): 1,000 次/月
-- **Pro** ($29.99/月): 10,000 次/月
+### Deploy
+推送到 `main` 分支自动部署。
