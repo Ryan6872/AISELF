@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prometheus Toolkit | Ultra-fast Python Code Analysis API</title>
+    <meta name="description" content="Serverless Python AST parsing, complexity analysis, and text processing API. Built for developers, by developers. Free tier available.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+            --card-bg: #171717;
+            --code-bg: #1e1e1e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        header {
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            z-index: -1;
+            opacity: 0.4;
+            filter: blur(80px);
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.05em;
+        }
+
+        p.subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 6rem 0;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #333;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+        }
+
+        /* Code Demo */
+        .demo-section {
+            background: #111;
+            padding: 4rem 2rem;
+            border-radius: 16px;
+            margin-bottom: 6rem;
+            border: 1px solid #333;
+        }
+
+        .code-window {
+            background: var(--code-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            font-family: 'JetBrains Mono', monospace;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .window-header {
+            background: #252526;
+            padding: 0.8rem;
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+
+        .code-content {
+            padding: 1.5rem;
+            color: #d4d4d4;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .function { color: #dcdcaa; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 0;
+            color: var(--text-secondary);
+            border-top: 1px solid #333;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            p.subtitle { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <h1>Prometheus Toolkit</h1>
+            <p class="subtitle">Stop writing your own parsers. The ultimate Python Code Analysis & Text Processing API is here.</p>
+            <a href="https://rapidapi.com/liaoyingg/api/prometheus-text-and-code-toolkit" target="_blank" class="cta-button">Get API Key (Free)</a>
+        </header>
+
+        <section class="features">
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h3>Code Analysis</h3>
+                <p>Instantly extract function names, calculate cyclomatic complexity, and map class structures from raw Python code.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📝</span>
+                <h3>Text Stats</h3>
+                <p>Get readability scores, keyword extraction, and sentiment analysis for any text block in milliseconds.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🚀</span>
+                <h3>Zero Config</h3>
+                <p>No libraries to install. No heavy AST modules to manage. Just send a JSON payload and get results.</p>
+            </div>
+        </section>
+
+        <div class="demo-section">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Simple Implementation</h2>
+            <div class="code-window">
+                <div class="window-header">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="code-content">
+                    <pre>
+<span class="keyword">import</span> requests
+
+url = <span class="string">"https://prometheus-text-and-code-toolkit.p.rapidapi.com/api/explain"</span>
+payload = { <span class="string">"code"</span>: <span class="string">"def hello(): print('world')"</span>, <span class="string">"language"</span>: <span class="string">"python"</span> }
+headers = {
+    <span class="string">"x-rapidapi-key"</span>: <span class="string">"YOUR_API_KEY"</span>,
+    <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span>
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.json())
+<span class="comment"># Output: {'functions': [{'name': 'hello', 'lineno': 1}], 'complexity': 1}</span>
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Built with ❤️ by AISELF. Powered by Vercel.</p>
+    </footer>
+
+</body>
+</html>

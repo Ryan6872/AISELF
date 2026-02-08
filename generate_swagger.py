@@ -1,0 +1,144 @@
+import json
+
+openapi_spec = {
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Prometheus Text & Code Toolkit",
+    "description": "High-performance, zero-dependency text analysis and code structure parsing API. Ideal for static site generators, SEO tools, and code quality dashboards.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "support@aiself.vercel.app"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://aiself.vercel.app/api",
+      "description": "Production Server (Vercel)"
+    }
+  ],
+  "paths": {
+    "/explain": {
+      "post": {
+        "summary": "Analyze Python Code (AST)",
+        "description": "Analyzes Python source code using Abstract Syntax Tree (AST) parsing to extract functions, classes, and calculate cyclomatic complexity.",
+        "operationId": "analyzeCode",
+        "requestBody": {
+          "required": True,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "example": "def hello():\n    print('world')",
+                    "description": "Source code to analyze"
+                  },
+                  "language": {
+                    "type": "string",
+                    "example": "python",
+                    "default": "python",
+                    "enum": ["python", "auto"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful analysis",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "analysis": {
+                      "type": "object",
+                      "properties": {
+                        "functions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {"type": "string"},
+                              "lineno": {"type": "integer"},
+                              "args": {"type": "array", "items": {"type": "string"}}
+                            }
+                          }
+                        },
+                        "classes": {"type": "array", "items": {"type": "object"}},
+                        "imports": {"type": "array", "items": {"type": "string"}},
+                        "complexity": {"type": "integer"}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/text": {
+      "post": {
+        "summary": "Text Processing Tools",
+        "description": "Perform various text operations: statistics, keyword extraction, cleaning, and slug generation.",
+        "operationId": "processText",
+        "requestBody": {
+          "required": True,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "action": {
+                    "type": "string",
+                    "enum": ["stats", "keywords", "clean", "slug"],
+                    "description": "Action to perform on the text",
+                    "example": "stats"
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Input text to process",
+                    "example": "Prometheus is a titan of industry."
+                  },
+                  "top": {
+                    "type": "integer",
+                    "description": "Number of keywords to extract (only for 'keywords' action)",
+                    "default": 5
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful processing",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "words": {"type": "integer"},
+                    "sentences": {"type": "integer"},
+                    "reading_time_seconds": {"type": "integer"},
+                    "keywords": {"type": "array", "items": {"type": "string"}},
+                    "cleaned_text": {"type": "string"},
+                    "slug": {"type": "string"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+with open('swagger.json', 'w', encoding='utf-8') as f:
+    json.dump(openapi_spec, f, indent=2)
+
+print("Check swagger.json file for OpenAPI spec.")

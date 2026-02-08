@@ -1,0 +1,10 @@
+{
+    "mcpServers": {
+        "prometheus": {
+            "command": "python",
+            "args": [
+                "C:\\Users\\Administrator\\OneDrive\\个人文件\\make money\\AISELF\\mcp-server\\server.py"
+            ]
+        }
+    }
+}
