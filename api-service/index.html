@@ -3,249 +3,325 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prometheus Toolkit | Ultra-fast Python Code Analysis API</title>
-    <meta name="description" content="Serverless Python AST parsing, complexity analysis, and text processing API. Built for developers, by developers. Free tier available.">
+    <title>Prometheus Toolkit | Advanced Code Security & Health Scanner</title>
+    <meta name="description" content="Instant Python security scanning, cyclomatic complexity analysis, and health usage scoring. API for developers.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0a0a0a;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --accent: #3b82f6;
-            --accent-glow: rgba(59, 130, 246, 0.5);
-            --card-bg: #171717;
-            --code-bg: #1e1e1e;
+            --bg-color: #0d1117;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --accent-glow: rgba(88, 166, 255, 0.4);
+            --danger: #f85149;
+            --success: #2ea043;
+            --warning: #d29922;
+            --card-bg: #161b22;
+            --border: #30363d;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-primary);
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
 
-        /* Hero Section */
-        header {
-            padding: 6rem 0;
-            text-align: center;
-            position: relative;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            z-index: -1;
-            opacity: 0.4;
-            filter: blur(80px);
-        }
-
+        /* HEADER */
+        header { padding: 4rem 0 2rem; text-align: center; }
+        
         h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 800;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, #fff, #94a3b8);
+            margin-bottom: 1rem;
+            color: #ffffff;
+            letter-spacing: -1px;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #58a6ff 0%, #a371f7 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -0.05em;
         }
 
         p.subtitle {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto 3rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
         }
 
-        .cta-button {
-            display: inline-block;
-            background-color: var(--accent);
-            color: white;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            font-size: 1.1rem;
+        .cta-group { display: flex; gap: 1rem; justify-content: center; margin-bottom: 3rem; }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px var(--accent-glow);
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px var(--accent-glow);
+        .btn-primary {
+            background: var(--accent);
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.1);
         }
+        .btn-primary:hover { background: #409eff; transform: translateY(-2px); box-shadow: 0 4px 12px var(--accent-glow); }
 
-        /* Features Grid */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 6rem 0;
-        }
-
-        .feature-card {
+        .btn-secondary {
             background: var(--card-bg);
-            padding: 2rem;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { border-color: var(--text-secondary); }
+
+        /* LIVE DEMO */
+        .scanner-interface {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
             border-radius: 12px;
-            border: 1px solid #333;
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-        }
-
-        .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .feature-card p {
-            color: var(--text-secondary);
-        }
-
-        /* Code Demo */
-        .demo-section {
-            background: #111;
-            padding: 4rem 2rem;
-            border-radius: 16px;
-            margin-bottom: 6rem;
-            border: 1px solid #333;
-        }
-
-        .code-window {
-            background: var(--code-bg);
-            border-radius: 8px;
             overflow: hidden;
-            font-family: 'JetBrains Mono', monospace;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            margin-bottom: 4rem;
         }
 
-        .window-header {
-            background: #252526;
-            padding: 0.8rem;
-            display: flex;
-            gap: 8px;
-        }
-
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .red { background: #ff5f56; }
-        .yellow { background: #ffbd2e; }
-        .green { background: #27c93f; }
-
-        .code-content {
-            padding: 1.5rem;
-            color: #d4d4d4;
-            font-size: 0.9rem;
-            overflow-x: auto;
-        }
-
-        .keyword { color: #569cd6; }
-        .string { color: #ce9178; }
-        .comment { color: #6a9955; }
-        .function { color: #dcdcaa; }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 4rem 0;
+        .input-panel, .output-panel { padding: 0; display: flex; flex-direction: column; height: 500px; }
+        
+        .panel-header {
+            background: #0d1117;
+            padding: 0.75rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
             color: var(--text-secondary);
-            border-top: 1px solid #333;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100%;
+            background: #0d1117;
+            color: var(--text-primary);
+            border: none;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            resize: none;
+            outline: none;
+        }
+
+        .output-content {
+            background: #0d1117;
+            padding: 1rem;
+            height: 100%;
+            overflow-y: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            background: #238636;
+            color: white;
+            display: none; /* Hidden by default */
+        }
+
+        #scanBtn {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem; /* Will adjust with JS or layout */
         }
         
+        /* RESULT HIGHLIGHTS */
+        .key { color: #7ee787; }
+        .string { color: #a5d6ff; }
+        .number { color: #79c0ff; }
+        .boolean { color: #ff7b72; }
+
+        .scan-actions {
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+            background: var(--card-bg);
+            text-align: right;
+        }
+
+        /* FEATURES */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .feature-item {
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+        
+        .feature-item h3 { margin-bottom: 0.5rem; color: #fff; }
+
         @media (max-width: 768px) {
+            .scanner-interface { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
             h1 { font-size: 2.5rem; }
-            p.subtitle { font-size: 1.1rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+<div class="container">
+    <header>
+        <span style="font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 700;">v2.0 Now Available</span>
+        <h1>Don't guessing. <br><span class="gradient-text">Know Your Code's Health.</span></h1>
+        <p class="subtitle">Evaluate Cyclomatic Complexity, Maintainability, and Security Risks in real-time. The API built for modern engineering teams.</p>
         
-        <header>
-            <h1>Prometheus Toolkit</h1>
-            <p class="subtitle">Stop writing your own parsers. The ultimate Python Code Analysis & Text Processing API is here.</p>
-            <a href="https://rapidapi.com/liaoyingg/api/prometheus-text-and-code-toolkit" target="_blank" class="cta-button">Get API Key (Free)</a>
-        </header>
+        <div class="cta-group">
+            <a href="https://rapidapi.com/liaoyingg/api/prometheus-text-and-code-toolkit" target="_blank" class="btn btn-primary">Get API Key (Free)</a>
+            <a href="https://dev.to" target="_blank" class="btn btn-secondary">Read the Docs</a>
+        </div>
+    </header>
 
-        <section class="features">
-            <div class="feature-card">
-                <span class="feature-icon">⚡</span>
-                <h3>Code Analysis</h3>
-                <p>Instantly extract function names, calculate cyclomatic complexity, and map class structures from raw Python code.</p>
+    <!-- LIVE DEMO INTERFACE -->
+    <div class="scanner-interface">
+        <div class="input-panel">
+            <div class="panel-header">
+                <span>INPUT: PYTHON SOURCE</span>
+                <span class="status-badge" style="display:inline-block; background: var(--border);">Ready</span>
             </div>
-            <div class="feature-card">
-                <span class="feature-icon">📝</span>
-                <h3>Text Stats</h3>
-                <p>Get readability scores, keyword extraction, and sentiment analysis for any text block in milliseconds.</p>
-            </div>
-            <div class="feature-card">
-                <span class="feature-icon">🚀</span>
-                <h3>Zero Config</h3>
-                <p>No libraries to install. No heavy AST modules to manage. Just send a JSON payload and get results.</p>
-            </div>
-        </section>
+            <textarea id="codeInput" spellcheck="false">
+import os
 
-        <div class="demo-section">
-            <h2 style="text-align: center; margin-bottom: 2rem;">Simple Implementation</h2>
-            <div class="code-window">
-                <div class="window-header">
-                    <div class="dot red"></div>
-                    <div class="dot yellow"></div>
-                    <div class="dot green"></div>
-                </div>
-                <div class="code-content">
-                    <pre>
-<span class="keyword">import</span> requests
-
-url = <span class="string">"https://prometheus-text-and-code-toolkit.p.rapidapi.com/api/explain"</span>
-payload = { <span class="string">"code"</span>: <span class="string">"def hello(): print('world')"</span>, <span class="string">"language"</span>: <span class="string">"python"</span> }
-headers = {
-    <span class="string">"x-rapidapi-key"</span>: <span class="string">"YOUR_API_KEY"</span>,
-    <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span>
-}
-
-response = requests.post(url, json=payload, headers=headers)
-print(response.json())
-<span class="comment"># Output: {'functions': [{'name': 'hello', 'lineno': 1}], 'complexity': 1}</span>
-                    </pre>
-                </div>
+def legacy_processor(data, mode):
+    # This function is hard to maintain
+    if mode == 'fast':
+        if data:
+            return process_fast(data)
+        else:
+            return None
+    elif mode == 'safe':
+        # Simulated security risk
+        eval(data) 
+        return "Executed"
+    
+    for i in range(10):
+        if i > 5 and mode == 'mix':
+            print("Complex logic")
+            
+    return "Done"
+</textarea>
+            <div class="scan-actions">
+                <button id="runScan" class="btn btn-primary" style="padding: 0.5rem 1.2rem; font-size: 0.9rem;">
+                    Run Deep Scan ⚡
+                </button>
             </div>
         </div>
-
+        
+        <div class="output-panel">
+            <div class="panel-header">
+                <span>ANALYSIS RESULT (JSON)</span>
+            </div>
+            <div id="outputContent" class="output-content">// Click 'Run Deep Scan' to analyze...</div>
+        </div>
     </div>
 
-    <footer>
-        <p>Built with ❤️ by AISELF. Powered by Vercel.</p>
+    <!-- FEATURES -->
+    <div class="features-grid">
+        <div class="feature-item">
+            <h3 style="color: var(--danger);">🛡️ Security Scanner</h3>
+            <p>Automatically detects dangerous patterns like `eval()`, `exec()`, and unsafe imports before they hit production.</p>
+        </div>
+        <div class="feature-item">
+            <h3 style="color: var(--accent);">🧠 Complexity Analysis</h3>
+            <p>Calculates Cyclomatic Complexity (McCabe) to identify hard-to-maintain functions.</p>
+        </div>
+        <div class="feature-item">
+            <h3 style="color: var(--success);">✅ Maintainability Index</h3>
+            <p>Get a single 0-100 score for file health. Keep your codebase clean and technical debt low.</p>
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding: 2rem 0; color: var(--text-secondary); font-size: 0.9rem; border-top: 1px solid var(--border);">
+        <p>&copy; 2026 AISELF Prometheus Toolkit. Powered by Enhanced Analyzer Core.</p>
     </footer>
+</div>
+
+<script>
+    const runBtn = document.getElementById('runScan');
+    const input = document.getElementById('codeInput');
+    const output = document.getElementById('outputContent');
+    const badge = document.querySelector('.status-badge');
+
+    runBtn.addEventListener('click', async () => {
+        const code = input.value;
+        if(!code.trim()) return;
+
+        // UI State: Loading
+        runBtn.innerHTML = 'Scanning...';
+        runBtn.style.opacity = '0.7';
+        output.innerHTML = '<span style="color: var(--text-secondary)">Connecting to analyzer core...</span>';
+
+        try {
+            // Using a relative path to call the internal API directly
+            const res = await fetch('/api/explain', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code: code, language: 'python' })
+            });
+
+            const data = await res.json();
+            
+            // Format and Syntax Highlight
+            const formatted = JSON.stringify(data, null, 2);
+            output.innerHTML = syntaxHighlight(formatted);
+            
+            runBtn.innerHTML = 'Run Deep Scan ⚡';
+            runBtn.style.opacity = '1';
+
+        } catch (e) {
+            output.innerHTML = `<span style="color: var(--danger)">Error: ${e.message}</span>`;
+            runBtn.innerHTML = 'Run Deep Scan ⚡';
+            runBtn.style.opacity = '1';
+        }
+    });
+
+    function syntaxHighlight(json) {
+        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+            var cls = 'number';
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                    cls = 'key'; // Key
+                } else {
+                    cls = 'string'; // String
+                }
+            } else if (/true|false/.test(match)) {
+                cls = 'boolean';
+            } else if (/null/.test(match)) {
+                cls = 'null';
+            }
+            return '<span class="' + cls + '">' + match + '</span>';
+        });
+    }
+</script>
 
 </body>
 </html>
