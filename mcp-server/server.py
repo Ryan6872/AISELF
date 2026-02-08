@@ -1,7 +1,8 @@
 from typing import Any
 import asyncio
 from mcp.server.fastmcp import FastMCP
-from utils import analyze_python_code, text_stats, extract_keywords, clean_text, generate_slug
+from utils import text_stats, extract_keywords, clean_text, generate_slug
+from core_analyzer import analyze_code as analyze_code_logic
 
 # Initialize FastMCP server
 mcp = FastMCP("Prometheus Toolkit")
@@ -9,10 +10,13 @@ mcp = FastMCP("Prometheus Toolkit")
 @mcp.tool()
 def analyze_code(code: str) -> str:
     """
-    Analyze Python source code structure and complexity.
-    Returns functions, classes, imports, and cyclomatic complexity.
+    Analyze Python source code structure, complexity, and security.
+    Returns:
+    - Metrics: Cyclomatic complexity, maintainability index.
+    - Security: Potential vulnerabilities (eval, exec, dangerous imports).
+    - Structure: Functions, classes, dependencies.
     """
-    result = analyze_python_code(code)
+    result = analyze_code_logic(code)
     return str(result)
 
 @mcp.tool()
