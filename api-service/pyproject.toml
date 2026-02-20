@@ -1,0 +1,6 @@
+[project]
+name = "code-explainer-api"
+version = "2.0.0"
+description = "Prometheus Text and Code Toolkit - Python AST Analysis & Text Processing API"
+requires-python = ">=3.9"
+dependencies = []
