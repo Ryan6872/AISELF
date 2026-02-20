@@ -1,4 +1,6 @@
-from .core_analyzer import analyze_code
+from http.server import BaseHTTPRequestHandler
+import json
+from api.core_analyzer import analyze_code
 
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):
