@@ -1,0 +1,1 @@
+explorer "C:\OpenClaw_Workspace\workspace\aiself-project\"
