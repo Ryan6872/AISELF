@@ -1,0 +1,9 @@
+[project]
+name = "youtube-viral-notes"
+version = "1.0.0"
+description = "Fetch YouTube Transcripts to summarize via AI."
+requires-python = ">=3.9"
+dependencies = [
+    "youtube-transcript-api",
+    "openai"
+]

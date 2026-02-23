@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viral Notes | YouTube to Content</title>
+    <!-- Modern Tech Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --primary-accent: #8b5cf6;
+            --secondary-accent: #ec4899;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: rgba(30, 41, 59, 0.7);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            /* Premium gradient background feel */
+            background-image: radial-gradient(circle at top right, rgba(139, 92, 246, 0.15), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(236, 72, 153, 0.15), transparent 40%);
+        }
+
+        header {
+            margin-top: 5rem;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            /* Gradient Text */
+            background: linear-gradient(to right, #a78bfa, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 3rem auto;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+            max-width: 700px;
+            padding: 0 1rem;
+            box-sizing: border-box;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 1.2rem 1.5rem;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--card-bg);
+            color: white;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .lang-select {
+            padding: 1.2rem;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--card-bg);
+            color: white;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+            padding-right: 2.5rem;
+        }
+
+        .lang-select:focus {
+            outline: none;
+            border-color: var(--primary-accent);
+        }
+
+        .lang-select option {
+            background-color: var(--bg-color);
+            color: white;
+        }
+
+        button {
+            padding: 0 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent));
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3);
+        }
+
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .results-container {
+            margin-top: 4rem;
+            width: 100%;
+            max-width: 800px;
+            padding: 0 1rem;
+            box-sizing: border-box;
+            display: none;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            margin-top: 0;
+            color: #f472b6;
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+        }
+
+        .text-content {
+            line-height: 1.8;
+            color: #cbd5e1;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Loading Animation */
+        .loader {
+            display: none;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(139, 92, 246, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-accent);
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .pulse-text {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .highlight-box {
+            background: rgba(139, 92, 246, 0.1);
+            border-left: 4px solid var(--primary-accent);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Viral Notes</h1>
+        <p class="subtitle">Turn 40-minute YouTube videos into high-converting social media posts & summaries in
+            seconds. Stop watching videos at 2x speed for content ideas.</p>
+    </header>
+
+    <div class="input-group">
+        <input type="text" id="urlInput" placeholder="Paste YouTube Link (e.g., https://youtu.be/dQw4w9WgXcQ)"
+            onkeypress="if(event.key === 'Enter') processVideo()">
+        <select id="langSelect" class="lang-select" title="Output summarization language">
+            <option value="auto">🌍 Auto (Local)</option>
+            <option value="English">🇬🇧 English</option>
+            <option value="Chinese (Simplified)">🇨🇳 简体中文</option>
+            <option value="Chinese (Traditional)">🇭🇰 繁體中文</option>
+            <option value="Spanish">🇪🇸 Español</option>
+            <option value="Japanese">🇯🇵 日本語</option>
+            <option value="Korean">🇰🇷 한국어</option>
+            <option value="French">🇫🇷 Français</option>
+            <option value="German">🇩🇪 Deutsch</option>
+        </select>
+        <button type="button" id="generateBtn" onclick="processVideo()">Extract Content</button>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <div class="pulse-text" id="statusText">Bypassing YouTube constraints & fetching transcript...</div>
+    </div>
+
+    <!-- Results Display -->
+    <div class="results-container" id="results">
+        <div class="card">
+            <h3>📈 AI Summary & Viral Hooks (Preview)</h3>
+            <div id="aiSummary" class="text-content"></div>
+        </div>
+
+        <div class="card">
+            <h3>📝 Extracted Raw Transcript</h3>
+            <div id="rawTranscript" class="text-content" style="font-size: 0.95rem; color: #94a3b8; max-height: 250px;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function processVideo() {
+            const url = document.getElementById('urlInput').value.trim();
+            if (!url) {
+                alert('Please drop a YouTube URL first! 🔥');
+                return;
+            }
+
+            const btn = document.getElementById('generateBtn');
+            const loader = document.getElementById('loader');
+            const results = document.getElementById('results');
+            const statusText = document.getElementById('statusText');
+
+            // UI Reset
+            btn.disabled = true;
+            btn.innerText = "Extracting...";
+            results.style.display = 'none';
+            loader.style.display = 'block';
+            statusText.innerText = "Fetching hidden subtitles and transcript data...";
+
+            try {
+                let targetLang = document.getElementById('langSelect').value;
+                if (targetLang === 'auto') {
+                    targetLang = navigator.language || 'English';
+                }
+
+                const bodyPayload = {
+                    url: url,
+                    language: targetLang
+                };
+
+                // Call our Vercel Serverless Function
+                // In local dev, it assumes you run 'vercel dev'
+                // On production, Vercel routes '/api/summarize' correctly
+                const response = await fetch('/api/summarize.py', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bodyPayload)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to fetch video transcript.');
+                }
+
+                statusText.innerText = "Transcript secured! AI is weaving the narrative...";
+
+                // Display Raw Data
+                document.getElementById('rawTranscript').innerText = data.transcript;
+
+                // Display Real AI Output
+                loader.style.display = 'none';
+                results.style.display = 'block';
+                btn.disabled = false;
+                btn.innerText = "Extract Content";
+
+                document.getElementById('aiSummary').innerHTML = data.ai_summary_html;
+
+            } catch (err) {
+                alert('⚠️ Error: ' + err.message + '\n\nMake sure the YouTube video has closed captions enabled and is not private.');
+                loader.style.display = 'none';
+                btn.disabled = false;
+                btn.innerText = "Extract Content";
+            }
+        }
+
+        // Helper to fake an insight for demo purposes
+        function extractInsight(text, index) {
+            const words = text.split(' ').slice(index * 30, (index + 1) * 30 + 15).join(' ');
+            return words ? `"...${words}..."` : "Content segment not found/too short.";
+        }
+    </script>
+</body>
+
+</html>
