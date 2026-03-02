@@ -1,1 +1,4 @@
 .vercel
+*_api_key.txt
+*.log
+*.csv
